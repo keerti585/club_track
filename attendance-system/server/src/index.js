@@ -15,6 +15,7 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'https://club-track-absm.vercel.app',
+        'https://club-track-9g2b.vercel.app',
         process.env.CLIENT_URL
     ],
     credentials: true,

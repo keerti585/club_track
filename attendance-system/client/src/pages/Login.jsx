@@ -150,12 +150,6 @@ const Login = () => {
                             )}
                         />
 
-                        <div className="flex items-center justify-end text-sm">
-                            <Link to="/forgot-password" className="text-[#93C5FD] transition hover:text-white">
-                                Forgot Password?
-                            </Link>
-                        </div>
-
                         <AuthButton disabled={loading}>
                             {loading ? 'Signing in...' : 'Sign In to Dashboard →'}
                         </AuthButton>

@@ -11,29 +11,15 @@ const assignmentRoutes = require('./routes/assignments.routes');
 
 const app = express();
 
-// Configure allowed origins for CORS
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'https://club-track-absm.vercel.app',
-    process.env.CLIENT_URL
-].filter(Boolean); // Remove undefined/null values
-
 app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('CORS policy: origin not allowed'));
-        }
-    },
+    origin: [
+        'http://localhost:5173',
+        'https://club-track-absm.vercel.app',
+        process.env.CLIENT_URL
+    ],
     credentials: true,
-    allowedHeaders: ['Authorization', 'Content-Type'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    optionsSuccessStatus: 200
+    allowedHeaders: ['Authorization', 'Content-Type']
 }));
 
 app.use(express.json());

@@ -3,8 +3,8 @@ import { Calendar, CalendarPlus, CheckCircle, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/axios';
-import LoadingSpinner from '../components/LoadingSpinner';
-import Toast from '../components/Toast';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
+import Toast from '../components/ui/Toast';
 
 const typeOptions = [
     { value: 'WORKSHOP', label: 'Workshop', icon: '🔧' },

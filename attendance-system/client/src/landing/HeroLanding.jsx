@@ -1,5 +1,5 @@
 import React from 'react';
-import Badge from '../components/Badge';
+import Badge from '../components/ui/Badge';
 import { motion } from 'framer-motion';
 import { CheckSquare } from 'lucide-react';
 

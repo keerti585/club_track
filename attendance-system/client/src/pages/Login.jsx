@@ -4,8 +4,8 @@ import { Eye, EyeOff, LayoutGrid, Lock, Key, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
-import AuthInput from '../components/AuthInput';
-import AuthButton from '../components/AuthButton';
+import AuthInput from '../components/ui/AuthInput';
+import AuthButton from '../components/ui/AuthButton';
 
 const Login = () => {
     const { login } = useAuth();

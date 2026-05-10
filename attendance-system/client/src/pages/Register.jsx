@@ -4,8 +4,8 @@ import { Eye, EyeOff, LayoutGrid, Lock, Mail, User, Sun, Moon, Check } from 'luc
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import AuthInput from '../components/AuthInput';
-import AuthButton from '../components/AuthButton';
+import AuthInput from '../components/ui/AuthInput';
+import AuthButton from '../components/ui/AuthButton';
 
 const Register = () => {
     const { register } = useAuth();

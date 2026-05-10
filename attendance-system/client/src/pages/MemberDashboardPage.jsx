@@ -4,10 +4,10 @@ import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/axios';
 import { useAuth } from '../context/AuthContext';
-import Badge from "../utils/components/Badge";
-import LoadingSpinner from '../components/LoadingSpinner';
-import StatCard from '../components/StatCard';
-import Avatar from '../components/Avatar';
+import Badge from '../components/ui/Badge';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
+import StatCard from '../components/ui/StatCard';
+import Avatar from '../components/ui/Avatar';
 
 const ThemeToggle = () => {
     const { theme, toggleTheme } = useTheme();

@@ -28,9 +28,9 @@ import { useNavigate } from 'react-router-dom';
 import api from '../utils/axios';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import Avatar from '../components/Avatar';
-import LoadingSpinner from '../components/LoadingSpinner';
-import Toast from '../components/Toast';
+import Avatar from '../components/ui/Avatar';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
+import Toast from '../components/ui/Toast';
 
 const statusStyles = {
     DRAFT: 'border border-white/10 text-[#9CA3AF] bg-white/5',

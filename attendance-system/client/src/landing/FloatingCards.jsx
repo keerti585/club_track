@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Badge from '../components/Badge';
+import Badge from '../components/ui/Badge';
 
 const FloatingCards = () => {
     return (

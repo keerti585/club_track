@@ -7,7 +7,7 @@ import CreateSessionPage from './pages/CreateSessionPage';
 import ScanPage from './pages/ScanPage';
 import MemberDashboardPage from './pages/MemberDashboardPage';
 import LandingPage from './pages/LandingPage';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './utils/components/ProtectedRoute';
 
 const App = () => {
     return (

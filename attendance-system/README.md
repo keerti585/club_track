@@ -74,7 +74,7 @@ Your browser should automatically open to `http://localhost:5173`.
 
 ## How to Verify Everything is Working
 
-1.  **Backend Health Check**: Open your browser or a tool like Postman and navigate to `http://localhost:5000/health`. You should see a JSON response: `{"status":"ok"}`.
+1.  **Backend Health Check**: Open your browser or a tool like Postman and navigate to `https://club-track-1.onrender.com/health`. You should see a JSON response: `{"status":"ok"}`.
 2.  **Frontend Home Page**: The application should be running at `http://localhost:5173`. You should see a simple placeholder "Home Page".
 3.  **Frontend Routes**:
     - Navigate to `http://localhost:5173/admin` to see the "Admin Page".

@@ -60,9 +60,11 @@ const MemberDashboardPage = () => {
                 const active = activeRes.data?.session;
                 console.log('My stats:', statsRes.data);
                 console.log('My attendance:', attendanceRes.data);
+                console.log('Assignments response:', assignmentsRes.data);
                 setActiveSession(active);
                 setStats(statsRes.data || { attended: 0, totalSessions: 0, percentage: 0, streak: 0, sessionsAttended: [] });
                 setAttendanceRows(attendanceRes.data?.attendance || []);
+                setAssignments(assignmentsRes.data?.assignments || []);
 
                 if (active) {
                     try {

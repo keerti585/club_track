@@ -229,6 +229,7 @@ const AdminPage = () => {
     const presentTodayValue = useCountUp(todayAttendance);
     const absentTodayValue = useCountUp(absentToday);
     const attendancePercentValue = useCountUp(attendancePercent);
+    const todayDate = new Date().toISOString().split('T')[0];
 
     const getSearchPlaceholder = () => {
         switch (activeView) {
@@ -437,7 +438,7 @@ const AdminPage = () => {
     }, [activeSession, selectedSessionId]);
 
     useEffect(() => {
-        if (!selectedSession || selectedSession.status !== 'ACTIVE') return;
+        if (!selectedSession) return;
         fetchAttendance(selectedSession._id);
 
         const intervalId = setInterval(() => {
@@ -448,7 +449,7 @@ const AdminPage = () => {
     }, [fetchAttendance, selectedSession]);
 
     useEffect(() => {
-        if (!selectedSession || selectedSession.status !== 'ACTIVE') return;
+        if (!selectedSession) return;
         fetchMembers(selectedSession._id);
 
         const intervalId = setInterval(() => {
@@ -582,10 +583,6 @@ const AdminPage = () => {
     };
 
     const handleOpenAttendance = async (session, tab = 'live') => {
-        if (session.status !== 'ACTIVE') {
-            pushToast('error', 'Session must be ACTIVE to view attendance.');
-            return;
-        }
         setSelectedSessionId(session._id);
         setExpandedSessionId(prev => (prev === session._id ? '' : session._id));
         setAttendanceTab(tab);
@@ -837,8 +834,8 @@ const AdminPage = () => {
     };
 
     const handleCreateAssignment = async (sessionId) => {
-        if (!assignmentTitle.trim() || !assignmentDescription.trim()) {
-            pushToast('error', 'Title and description are required');
+        if (!assignmentTitle.trim()) {
+            pushToast('error', 'Title is required');
             return;
         }
 
@@ -848,7 +845,7 @@ const AdminPage = () => {
                 sessionId,
                 title: assignmentTitle,
                 description: assignmentDescription,
-                dueDate: assignmentDueDate || null
+                dueDate: assignmentDueDate || todayDate
             });
             setAssignmentTitle('');
             setAssignmentDescription('');
@@ -1661,7 +1658,15 @@ const AdminPage = () => {
                                                     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
                                                         <div>
                                                             <p className="text-xs uppercase tracking-[0.2em] text-[#4B5563]">Attendance</p>
-                                                            <p className="text-sm font-semibold text-white">{attendanceCount} members present</p>
+                                                            <div className="mt-1 flex items-center gap-2">
+                                                                <p className="text-sm font-semibold text-white">{attendanceCount} members present</p>
+                                                                {session.status === 'ACTIVE' && (
+                                                                    <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-200">
+                                                                        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                                                                        Live
+                                                                    </span>
+                                                                )}
+                                                            </div>
                                                         </div>
                                                         <div className="inline-flex rounded-full border border-white/10 bg-[#1F2937] p-1">
                                                             <button
@@ -1678,6 +1683,12 @@ const AdminPage = () => {
                                                             </button>
                                                         </div>
                                                     </div>
+
+                                                    {session.status === 'CLOSED' && (
+                                                        <div className="border-b border-white/10 px-4 py-3 text-xs text-[#9CA3AF]">
+                                                            This session is closed · {attendanceCount} members attended
+                                                        </div>
+                                                    )}
 
                                                     {attendanceTab === 'live' && (
                                                         <div className="space-y-3 px-4 py-4">
@@ -1826,14 +1837,15 @@ const AdminPage = () => {
                                                                 />
                                                                 <textarea
                                                                     rows={3}
-                                                                    placeholder="Description..."
+                                                                    placeholder="Description (optional)"
                                                                     value={assignmentDescription}
                                                                     onChange={e => setAssignmentDescription(e.target.value)}
                                                                     className="w-full rounded-lg border border-white/10 bg-[#1F2937] px-4 py-2 text-sm text-white placeholder:text-[#4B5563] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/60"
                                                                 />
+                                                                <label className="text-xs text-[#9CA3AF]">Assignment Date</label>
                                                                 <input
                                                                     type="date"
-                                                                    value={assignmentDueDate}
+                                                                    value={assignmentDueDate || todayDate}
                                                                     onChange={e => setAssignmentDueDate(e.target.value)}
                                                                     className="w-full rounded-lg border border-white/10 bg-[#1F2937] px-4 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/60"
                                                                 />
@@ -1869,7 +1881,7 @@ const AdminPage = () => {
                                                                                 </div>
                                                                                 <p className="mt-2 text-xs text-[#9CA3AF]">{assignment.description}</p>
                                                                                 <div className="mt-3 flex items-center justify-between">
-                                                                                    <p className="text-xs text-[#6B7280]">Added by {assignment.createdByName || 'Unknown'}</p>
+                                                                                    <p className="text-xs text-[#6B7280]">Added by {assignment.createdBy?.name || 'Admin'}</p>
                                                                                     <button
                                                                                         onClick={() => handleDeleteAssignment(assignment._id, session._id)}
                                                                                         className="inline-flex items-center gap-1 text-xs text-red-400 transition hover:text-red-300"

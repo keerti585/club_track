@@ -33,7 +33,7 @@ import LoadingSpinner from '../components/ui/LoadingSpinner';
 import Toast from '../components/ui/Toast';
 
 const statusStyles = {
-    DRAFT: 'border border-white/10 text-[#9CA3AF] bg-white/5',
+    DRAFT: 'border border-[var(--border-secondary)] text-[var(--text-secondary)] bg-[var(--bg-secondary)]',
     ACTIVE: 'border border-emerald-500/30 text-emerald-200 bg-emerald-500/15',
     CLOSED: 'border border-red-500/30 text-red-200 bg-red-500/15'
 };

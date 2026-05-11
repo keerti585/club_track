@@ -17,9 +17,9 @@ const ThemeToggle = () => {
             aria-label="Toggle theme"
             className="w-full justify-start rounded-lg px-3 py-2 text-sm transition"
             style={{
-                border: theme === 'light' ? '1px solid #D0DBFF' : '1px solid rgba(255,255,255,0.1)',
-                backgroundColor: theme === 'light' ? '#F0F4FF' : 'rgba(255,255,255,0.05)',
-                color: theme === 'light' ? '#1A2744' : '#9CA3AF'
+                border: '1px solid var(--border-color)',
+                backgroundColor: 'var(--bg-secondary)',
+                color: 'var(--text-secondary)'
             }}
         >
             {theme === 'dark' ? <Sun className="inline-block mr-2 h-4 w-4" /> : <Moon className="inline-block mr-2 h-4 w-4" />}
@@ -146,7 +146,7 @@ const MemberDashboardPage = () => {
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center bg-[#080C14]">
+            <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)]">
                 <LoadingSpinner />
             </div>
         );
@@ -157,24 +157,24 @@ const MemberDashboardPage = () => {
             <div className="flex min-h-screen">
                 <aside
                     style={{
-                        backgroundColor: '#1A2744',
-                        borderColor: 'rgba(255,255,255,0.1)',
-                        color: '#FFFFFF'
+                        backgroundColor: 'var(--bg-sidebar)',
+                        borderColor: 'var(--border-color)',
+                        color: 'var(--text-sidebar)'
                     }}
                     className="fixed inset-y-0 left-0 hidden w-64 flex-col border-r md:flex"
                 >
                     <div className="px-6 py-6">
                         <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#3B82F6]/15 text-[#3B82F6]">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-primary/15 text-accent-primary">
                                 <LayoutGrid size={18} />
                             </div>
                             <div>
-                                <p style={{ color: theme === 'light' ? '#FFFFFF' : 'var(--text-primary)' }} className="text-sm font-semibold">SmartAttend</p>
-                                <p style={{ color: theme === 'light' ? 'rgba(255,255,255,0.6)' : 'var(--text-secondary)' }} className="text-xs uppercase tracking-[0.3em]">DEVELOPER'S CLUB</p>
+                                <p style={{ color: 'var(--text-primary-sidebar)' }} className="text-sm font-semibold">SmartAttend</p>
+                                <p style={{ color: 'var(--text-secondary-sidebar)' }} className="text-xs uppercase tracking-[0.3em]">DEVELOPER'S CLUB</p>
                             </div>
                         </div>
                     </div>
-                    <div className="mx-6 border-t" style={{ borderColor: theme === 'light' ? 'rgba(255,255,255,0.1)' : 'var(--border-color)' }} />
+                    <div className="mx-6 border-t" style={{ borderColor: 'var(--border-color)' }} />
 
                     <nav className="mt-6 flex-1 space-y-1 px-3 text-sm">
                         {[
@@ -194,13 +194,13 @@ const MemberDashboardPage = () => {
                                         }
                                     }}
                                     style={{
-                                        color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.75)',
-                                        backgroundColor: isActive ? 'rgba(59,130,246,0.2)' : 'transparent',
-                                        borderLeft: isActive ? '3px solid #3B82F6' : '3px solid transparent'
+                                        color: isActive ? 'var(--text-primary-sidebar)' : 'var(--text-secondary-sidebar)',
+                                        backgroundColor: isActive ? 'var(--bg-sidebar-active)' : 'transparent',
+                                        borderLeft: isActive ? '3px solid var(--accent-primary)' : '3px solid transparent'
                                     }}
                                     className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition hover:text-white"
                                 >
-                                    <item.icon className="h-4 w-4 text-[#3B82F6]" />
+                                    <item.icon className="h-4 w-4 text-accent-primary" />
                                     {item.label}
                                 </button>
                             );
@@ -209,20 +209,20 @@ const MemberDashboardPage = () => {
 
                     <div
                         className="mt-auto space-y-4 border-t px-6 py-5"
-                        style={{ borderColor: theme === 'light' ? 'rgba(255,255,255,0.1)' : 'var(--border-color)' }}
+                        style={{ borderColor: 'var(--border-color)' }}
                     >
                         <ThemeToggle />
 
                         <div className="flex items-center gap-3">
                             <Avatar name={user?.name} size="md" />
                             <div>
-                                <p style={{ color: theme === 'light' ? '#FFFFFF' : 'var(--text-primary)' }} className="text-sm font-semibold">{user?.name || 'Member'}</p>
+                                <p style={{ color: 'var(--text-primary-sidebar)' }} className="text-sm font-semibold">{user?.name || 'Member'}</p>
                                 <span
                                     className="mt-1 inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold"
                                     style={{
-                                        borderColor: theme === 'light' ? 'rgba(255,255,255,0.2)' : 'var(--border-color)',
-                                        backgroundColor: theme === 'light' ? 'rgba(255,255,255,0.1)' : 'var(--bg-input)',
-                                        color: theme === 'light' ? 'rgba(255,255,255,0.8)' : 'var(--text-secondary)'
+                                        borderColor: 'var(--border-color)',
+                                        backgroundColor: 'var(--bg-input)',
+                                        color: 'var(--text-secondary-sidebar)'
                                     }}
                                 >
                                     MEMBER
@@ -233,9 +233,9 @@ const MemberDashboardPage = () => {
                             onClick={handleLogout}
                             className="inline-flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition"
                             style={{
-                                borderColor: theme === 'light' ? 'rgba(255,255,255,0.2)' : 'var(--border-color)',
-                                backgroundColor: theme === 'light' ? 'rgba(255,255,255,0.1)' : 'var(--bg-input)',
-                                color: theme === 'light' ? 'rgba(255,255,255,0.7)' : 'var(--text-secondary)'
+                                borderColor: 'var(--border-color)',
+                                backgroundColor: 'var(--bg-input)',
+                                color: 'var(--text-secondary-sidebar)'
                             }}
                         >
                             <LogOut className="h-4 w-4" />
@@ -260,7 +260,7 @@ const MemberDashboardPage = () => {
 
                     {/* SECTION 1: Active Session Banner */}
                     {activeSession ? (
-                        <div id="sessions-section" style={{ borderColor: 'rgba(16, 185, 129, 0.3)', backgroundColor: 'rgba(16, 185, 129, 0.1)' }} className="mb-8 flex gap-6 rounded-2xl border-l-4 border-l-emerald-500 p-6">
+                        <div id="sessions-section" style={{ borderColor: 'var(--border-accent)', backgroundColor: 'var(--accent-primary-alpha)' }} className="mb-8 flex gap-6 rounded-2xl border-l-4 border-l-emerald-500 p-6">
                             <div className="flex-1">
                                 <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-300 mb-3 border border-emerald-500/30">
                                     <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -300,7 +300,7 @@ const MemberDashboardPage = () => {
                             </div>
                         </div>
                     ) : (
-                        <div style={{ borderColor: 'var(--border-color)', backgroundColor: 'rgba(100, 100, 100, 0.1)' }} className="mb-8 rounded-2xl border p-6 text-center">
+                        <div style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }} className="mb-8 rounded-2xl border p-6 text-center">
                             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
                                 No active session right now. Check back when your admin starts a session.
                             </p>
@@ -330,13 +330,13 @@ const MemberDashboardPage = () => {
                     </div>
 
                     {/* SECTION 3: My Attendance History */}
-                    <div id="attendance-section" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }} className="mb-10 overflow-hidden rounded-2xl border shadow-xl">
+                    <div id="attendance-section" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }} className="mb-10 overflow-hidden rounded-2xl border shadow-[var(--card-shadow)]">
                         <div style={{ borderBottomColor: 'var(--border-color)' }} className="border-b px-6 py-4">
                             <h2 style={{ color: 'var(--text-primary)' }} className="text-lg font-semibold">My Attendance History</h2>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-sm">
-                                <thead style={{ backgroundColor: 'rgba(0,0,0,0.05)', color: 'var(--text-secondary)' }} className="text-xs uppercase tracking-wider">
+                                <thead style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }} className="text-xs uppercase tracking-wider">
                                     <tr>
                                         <th className="px-6 py-4 font-medium">Session</th>
                                         <th className="px-6 py-4 font-medium">Date</th>
@@ -348,7 +348,7 @@ const MemberDashboardPage = () => {
                                 <tbody style={{ borderColor: 'var(--border-color)' }} className="divide-y">
                                     {attendanceRows.length > 0 ? (
                                         attendanceRows.map((row) => (
-                                            <tr key={row._id} className="transition hover:bg-white/5">
+                                            <tr key={row._id} className="transition hover:bg-[var(--hover-bg)]">
                                                 <td style={{ color: 'var(--text-primary)' }} className="whitespace-nowrap px-6 py-4 font-medium">{row.title}</td>
                                                 <td style={{ color: 'var(--text-secondary)' }} className="whitespace-nowrap px-6 py-4">
                                                     {row.date ? new Date(row.date).toLocaleDateString() : 'N/A'}

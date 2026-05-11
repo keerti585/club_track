@@ -57,10 +57,10 @@ const Register = () => {
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.2),_transparent_60%),radial-gradient(circle_at_bottom,_rgba(139,92,246,0.2),_transparent_55%)]" />
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:56px_56px] opacity-20" />
 
-                <nav style={{ borderBottomColor: 'var(--border-color)', backgroundColor: 'rgba(var(--bg-primary), 0.9)' }} className="fixed left-0 top-0 z-20 w-full border-b backdrop-blur">
+                <nav style={{ borderBottomColor: 'var(--border-color)', backgroundColor: 'var(--bg-navbar)' }} className="fixed left-0 top-0 z-20 w-full border-b backdrop-blur">
                     <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
                         <div className="flex items-center gap-3">
-                            <div style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }} className="flex h-10 w-10 items-center justify-center rounded-xl border text-[#3B82F6]">
+                            <div style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }} className="flex h-10 w-10 items-center justify-center rounded-xl border text-accent-primary">
                                 <LayoutGrid size={18} />
                             </div>
                             <div>
@@ -69,7 +69,7 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
-                            <button onClick={toggleTheme} aria-label="Toggle theme" className="rounded-full p-2 hover:bg-white/5 text-slate-300">
+                            <button onClick={toggleTheme} aria-label="Toggle theme" className="rounded-full p-2 hover:bg-[var(--hover-bg)] text-[var(--text-primary)]">
                                 {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                             </button>
                         </div>
@@ -81,7 +81,7 @@ const Register = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, ease: 'easeOut' }}
-                        style={{ borderColor: 'var(--border-color)', backgroundColor: 'rgba(255,255,255,0.05)' }}
+                        style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card-alpha)' }}
                         className="w-full max-w-md rounded-3xl border p-8 shadow-[0_24px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
                     >
                         <motion.div
@@ -107,11 +107,11 @@ const Register = () => {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            style={{ borderColor: '#3B82F6', backgroundColor: 'rgba(59, 130, 246, 0.1)' }}
+                            style={{ borderColor: 'var(--accent-primary)', backgroundColor: 'var(--accent-primary-alpha)' }}
                             className="mt-8 rounded-2xl border-2 p-6 text-center"
                         >
                             <p style={{ color: 'var(--text-secondary)' }} className="text-xs uppercase tracking-[0.2em] mb-3">Your Access Code</p>
-                            <p className="font-mono text-4xl font-bold text-[#3B82F6] tracking-[0.1em]">
+                            <p className="font-mono text-4xl font-bold text-accent-primary tracking-[0.1em]">
                                 {registeredAccessCode}
                             </p>
                             <p style={{ color: 'var(--text-secondary)' }} className="mt-4 text-xs">
@@ -129,8 +129,8 @@ const Register = () => {
                             onClick={handleCopyCode}
                             style={{
                                 borderColor: 'var(--border-color)',
-                                backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                                color: '#3B82F6'
+                                backgroundColor: 'var(--accent-primary-alpha)',
+                                color: 'var(--accent-primary)'
                             }}
                             className="mt-6 w-full rounded-xl border px-4 py-3 text-sm font-medium transition hover:bg-blue-500/30"
                         >
@@ -143,10 +143,10 @@ const Register = () => {
                             transition={{ delay: 0.6 }}
                             onClick={() => navigate('/login')}
                             style={{
-                                backgroundColor: '#3B82F6',
+                                backgroundColor: 'var(--accent-primary)',
                                 color: 'white'
                             }}
-                            className="mt-4 w-full rounded-xl px-4 py-3 text-sm font-medium transition hover:bg-blue-600 shadow-[0_0_18px_rgba(59,130,246,0.35)]"
+                            className="mt-4 w-full rounded-xl px-4 py-3 text-sm font-medium transition hover:brightness-110 shadow-[var(--shadow-button)]"
                         >
                             Proceed to Login →
                         </motion.button>

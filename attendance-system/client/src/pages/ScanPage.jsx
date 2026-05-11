@@ -199,29 +199,29 @@ const ScanPage = () => {
 
     return (
         <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="min-h-screen [font-family:'DM Sans',sans-serif]">
-            <div className="min-h-screen px-4 py-10" style={{ backgroundImage: theme === 'light' ? 'radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)' : 'radial-gradient(#2A2A2A 1px, transparent 1px)', backgroundSize: '18px 18px' }}>
+            <div className="min-h-screen px-4 py-10" style={{ backgroundImage: 'var(--bg-grid-pattern)', backgroundSize: '18px 18px' }}>
                 <div className="mx-auto max-w-xl text-center">
                     <p style={{ color: 'var(--text-secondary)' }} className="text-xs uppercase tracking-[0.35em] [font-family:'Space Mono',monospace]">Developer&apos;s Club Attendance</p>
                     <h1 style={{ color: 'var(--text-primary)' }} className="mt-3 text-3xl font-semibold [font-family:'Space Mono',monospace]">Mark Your Attendance</h1>
                 </div>
 
-                <div style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }} className="mx-auto mt-10 w-full max-w-sm rounded-2xl border p-6 shadow-[inset_0_0_0_1px]">
+                <div style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-card)' }} className="mx-auto mt-10 w-full max-w-sm rounded-2xl border p-6 shadow-[var(--shadow-card)]">
                     {!hasDirectParams && !message && (
                         <div className="text-center">
-                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-[#2A2A2A] bg-[#111111]">
-                                <QrCode className="h-8 w-8 text-[#3B82F6]" />
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-[var(--border-secondary)] bg-[var(--bg-secondary)]">
+                                <QrCode className="h-8 w-8 text-accent-primary" />
                             </div>
                             <h2 className="mt-4 text-xl font-semibold [font-family:'Space Mono',monospace]">Scan QR Code</h2>
-                            <p className="mt-2 text-sm text-[#9CA3AF]">
+                            <p className="mt-2 text-sm text-[var(--text-secondary)]">
                                 Point your camera at the QR code displayed at the session.
                             </p>
                             {scanError && (
-                                <p className="mt-3 text-sm text-red-200">{scanError}</p>
+                                <p className="mt-3 text-sm text-red-400">{scanError}</p>
                             )}
                             <div id={scannerId} className="mt-4" />
                             <button
                                 onClick={isScanning ? handleStopScan : handleStartScan}
-                                className="mt-5 w-full rounded-lg bg-[#3B82F6] px-4 py-2 text-sm font-semibold text-[#F9FAFB] transition hover:bg-[#2563EB]"
+                                className="mt-5 w-full rounded-lg bg-accent-primary px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110"
                             >
                                 {isScanning ? 'Stop Scanner' : 'Open Camera Scanner'}
                             </button>
@@ -234,7 +234,7 @@ const ScanPage = () => {
                                 <CheckCircle2 className="h-8 w-8 text-[#22C55E]" />
                             </div>
                             <h2 className="mt-4 text-xl font-semibold [font-family:'Space Mono',monospace]">You&apos;re In!</h2>
-                            <p className="mt-2 text-sm text-[#9CA3AF]">Complete your attendance below.</p>
+                            <p className="mt-2 text-sm text-[var(--text-secondary)]">Complete your attendance below.</p>
                         </div>
                     )}
 
@@ -244,7 +244,7 @@ const ScanPage = () => {
                             <p className="mt-2 text-sm">{message}</p>
                         </div>
                     ) : hasDirectParams && isLoggedIn ? (
-                        <div className="mt-6 flex flex-col items-center gap-3 text-center text-sm text-[#9CA3AF]">
+                        <div className="mt-6 flex flex-col items-center gap-3 text-center text-sm text-[var(--text-secondary)]">
                             {error && (
                                 <div className="w-full rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
                                     {error}
@@ -254,17 +254,17 @@ const ScanPage = () => {
                                 <LoadingSpinner />
                             ) : error ? (
                                 <>
-                                    <p className="text-sm text-[#9CA3AF]">Unable to mark attendance.</p>
+                                    <p className="text-sm text-[var(--text-secondary)]">Unable to mark attendance.</p>
                                     <button
                                         type="button"
                                         onClick={handleRetryAuto}
-                                        className="w-full rounded-lg border border-[#2A2A2A] bg-[#111111] px-4 py-2 text-sm font-semibold text-[#F9FAFB] transition hover:bg-[#1F1F1F]"
+                                        className="w-full rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-secondary)] px-4 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:bg-[var(--hover-bg)]"
                                     >
                                         Retry
                                     </button>
                                 </>
                             ) : (
-                                <p className="text-sm text-[#9CA3AF]">Marking attendance...</p>
+                                <p className="text-sm text-[var(--text-secondary)]">Marking attendance...</p>
                             )}
                         </div>
                     ) : hasDirectParams ? (
@@ -275,32 +275,32 @@ const ScanPage = () => {
                                 </div>
                             )}
                             <div>
-                                <label className="text-xs uppercase tracking-[0.2em] text-[#9CA3AF] [font-family:'Space Mono',monospace]">Full Name</label>
+                                <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)] [font-family:'Space Mono',monospace]">Full Name</label>
                                 <input
                                     type="text"
                                     placeholder="Your name"
                                     value={name}
                                     onChange={event => setName(event.target.value)}
-                                    className="mt-2 w-full rounded-lg border border-[#2A2A2A] bg-[#111111] px-4 py-2 text-sm text-[#F9FAFB] placeholder:text-[#6B7280] focus:outline-none focus:shadow-[0_0_0_2px_#3B82F6] transition"
+                                    className="mt-2 w-full rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-secondary)] px-4 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:shadow-[var(--shadow-input-focus)] transition"
                                     disabled={loading}
                                     required
                                 />
                             </div>
                             <div>
-                                <label className="text-xs uppercase tracking-[0.2em] text-[#9CA3AF] [font-family:'Space Mono',monospace]">Email</label>
+                                <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)] [font-family:'Space Mono',monospace]">Email</label>
                                 <input
                                     type="email"
                                     placeholder="Your email"
                                     value={email}
                                     onChange={event => setEmail(event.target.value)}
-                                    className="mt-2 w-full rounded-lg border border-[#2A2A2A] bg-[#111111] px-4 py-2 text-sm text-[#F9FAFB] placeholder:text-[#6B7280] focus:outline-none focus:shadow-[0_0_0_2px_#3B82F6] transition"
+                                    className="mt-2 w-full rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-secondary)] px-4 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:shadow-[var(--shadow-input-focus)] transition"
                                     disabled={loading}
                                     required
                                 />
                             </div>
                             <button
                                 type="submit"
-                                className="w-full rounded-lg bg-[#22C55E] px-4 py-2 text-sm font-semibold text-[#0A0A0A] transition hover:brightness-110 disabled:opacity-60"
+                                className="w-full rounded-lg bg-[#22C55E] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
                                 disabled={loading}
                             >
                                 {loading ? 'Marking...' : 'Mark Attendance →'}
@@ -309,10 +309,10 @@ const ScanPage = () => {
                     ) : null}
                 </div>
 
-                <div className="mt-6 text-center text-sm text-[#9CA3AF]">
+                <div className="mt-6 text-center text-sm text-[var(--text-secondary)]">
                     <button
                         onClick={handleLogout}
-                        className="inline-flex items-center gap-2 text-[#9CA3AF] hover:text-[#F9FAFB] transition"
+                        className="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition"
                     >
                         <LogOut size={16} />
                         Wrong account? Sign out

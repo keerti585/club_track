@@ -47,7 +47,7 @@ const Login = () => {
                 className="fixed left-0 top-0 z-20 w-full border-b backdrop-blur"
                 style={{
                     borderColor: 'var(--border-color)',
-                    backgroundColor: theme === 'light' ? 'rgba(245,244,240,0.9)' : 'rgba(2,8,23,0.9)'
+                    backgroundColor: 'var(--bg-navbar)'
                 }}
             >
                 <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
@@ -73,7 +73,7 @@ const Login = () => {
                         <Link
                             to="/register"
                             style={{ color: 'var(--text-secondary)' }}
-                            className="text-sm font-medium transition hover:text-white"
+                            className="text-sm font-medium transition hover:opacity-70"
                         >
                             New here? Register →
                         </Link>
@@ -88,7 +88,7 @@ const Login = () => {
                     transition={{ duration: 0.4, ease: 'easeOut' }}
                     style={{
                         borderColor: 'var(--border-color)',
-                        backgroundColor: theme === 'light' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.05)'
+                        backgroundColor: 'var(--bg-card-alpha)'
                     }}
                     className="w-full max-w-md rounded-3xl border p-8 shadow-[0_24px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
                 >

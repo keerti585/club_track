@@ -14,16 +14,16 @@ const Navbar = ({ onOpenMobile, theme, onLogin, onRegister }) => {
             <div
                 className="mx-auto flex h-16 items-center justify-between gap-6 rounded-full px-4 py-2 backdrop-blur-xl border"
                 style={{
-                    backgroundColor: theme === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(2,8,23,0.8)',
-                    borderColor: theme === 'light' ? '#D0D7E3' : 'rgba(255,255,255,0.06)'
+                    backgroundColor: 'var(--bg-navbar)',
+                    borderColor: 'var(--border-primary)'
                 }}
             >
                 <div className="flex items-center gap-3">
                     <div
                         className="flex h-10 w-10 items-center justify-center rounded-lg border text-[#60A5FA]"
                         style={{
-                            backgroundColor: theme === 'light' ? 'rgba(59,130,246,0.1)' : '#071029',
-                            borderColor: theme === 'light' ? '#D0D7E3' : 'rgba(59,130,246,0.08)'
+                            backgroundColor: 'var(--bg-secondary)',
+                            borderColor: 'var(--border-secondary)'
                         }}
                     >
                         <LayoutGrid size={18} />
@@ -33,7 +33,7 @@ const Navbar = ({ onOpenMobile, theme, onLogin, onRegister }) => {
                             className="text-lg font-semibold"
                             style={{
                                 fontFamily: 'Space Grotesk, sans-serif',
-                                color: theme === 'light' ? '#1A2744' : '#FFFFFF'
+                                color: 'var(--text-primary)'
                             }}
                         >
                             SmartAttend
@@ -45,11 +45,11 @@ const Navbar = ({ onOpenMobile, theme, onLogin, onRegister }) => {
                     <button onClick={toggleTheme} className="theme-toggle-btn">
                         {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                     </button>
-                    <a onClick={onLogin} style={{ color: theme === 'light' ? '#1A2744' : '#9CA3AF' }} className="text-sm font-medium hover:opacity-75 transition cursor-pointer">Sign In</a>
-                    <a onClick={onRegister} className="rounded-full bg-[#3B82F6] px-5 py-2 text-sm font-semibold text-white shadow-[0_8px_30px_rgba(59,130,246,0.12)] hover:brightness-105 transition">Get Started →</a>
+                    <a onClick={onLogin} style={{ color: 'var(--text-secondary)' }} className="text-sm font-medium hover:opacity-75 transition cursor-pointer">Sign In</a>
+                    <a onClick={onRegister} className="rounded-full bg-accent-primary px-5 py-2 text-sm font-semibold text-white shadow-[0_8px_30px_rgba(59,130,246,0.12)] hover:brightness-105 transition">Get Started →</a>
                 </div>
 
-                <button onClick={onOpenMobile} style={{ color: theme === 'light' ? '#1A2744' : '#9CA3AF' }} className="lg:hidden">
+                <button onClick={onOpenMobile} style={{ color: 'var(--text-secondary)' }} className="lg:hidden">
                     <Menu />
                 </button>
             </div>
@@ -67,29 +67,29 @@ const Hero = ({ onLaunch, onSeeHow, theme }) => {
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(11,22,47,0.45)_0%,_transparent_45%)] pointer-events-none" />
 
             <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="relative mx-auto max-w-4xl text-center px-6">
-                <motion.div variants={item(0)} className="inline-flex items-center justify-center rounded-full border border-[#3B82F6]/30 bg-[#3B82F6]/6 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase" style={{ color: theme === 'light' ? '#1A2744' : '#93C5FD' }}>
+                <motion.div variants={item(0)} className="inline-flex items-center justify-center rounded-full border border-accent-primary/30 bg-accent-primary/10 px-4 py-1.5 text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--accent-text)' }}>
                     <span className="mr-2 block h-2 w-2 rounded-full bg-green-400 animate-pulse" />
                     Now Live · BEC Developer&apos;s Club
                 </motion.div>
 
-                <motion.h1 variants={item(0.1)} className="mt-6 text-5xl sm:text-6xl lg:text-8xl font-extrabold leading-tight" style={{ fontFamily: 'Space Grotesk, sans-serif', lineHeight: 1.02, color: theme === 'light' ? '#1A2744' : '#FFFFFF' }}>
+                <motion.h1 variants={item(0.1)} className="mt-6 text-5xl sm:text-6xl lg:text-8xl font-extrabold leading-tight" style={{ fontFamily: 'Space Grotesk, sans-serif', lineHeight: 1.02, color: 'var(--text-primary)' }}>
                     <div>Track Attendance</div>
                     <div>Like Never</div>
                     <div className="mt-1 bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-[#8B5CF6] to-[#06B6D4] animate-gradient">Before.</div>
                 </motion.h1>
 
-                <motion.p variants={item(0.2)} className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: theme === 'light' ? '#5B7AB5' : '#94A3B8' }}>
+                <motion.p variants={item(0.2)} className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     QR-based attendance for college clubs. Rotating tokens, manual fallback, live dashboard — built for real sessions.
                 </motion.p>
 
                 <motion.div variants={item(0.3)} className="mt-8 flex justify-center gap-4">
-                    <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} onClick={onLaunch} className="rounded-full bg-[#3B82F6] px-8 py-4 text-base font-semibold text-white shadow-[0_0_30px_rgba(59,130,246,0.4)]">Launch Dashboard →</motion.button>
-                    <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} onClick={onSeeHow} className="rounded-full px-8 py-4 text-base font-semibold" style={{ border: `2px solid ${theme === 'light' ? '#1A2744' : 'rgba(255,255,255,0.2)'}`, backgroundColor: 'transparent', color: theme === 'light' ? '#1A2744' : '#FFFFFF' }}>See How It Works</motion.button>
+                    <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} onClick={onLaunch} className="rounded-full bg-accent-primary px-8 py-4 text-base font-semibold text-white shadow-[0_0_30px_rgba(59,130,246,0.4)]">Launch Dashboard →</motion.button>
+                    <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} onClick={onSeeHow} className="rounded-full px-8 py-4 text-base font-semibold" style={{ border: `2px solid var(--border-primary)`, backgroundColor: 'transparent', color: 'var(--text-primary)' }}>See How It Works</motion.button>
                 </motion.div>
 
                 <motion.div variants={item(0.4)} className="mt-8 flex justify-center gap-6">
                     {["QR Auto-Refresh Every 10 Min", "Manual Attendance Fallback", "Live Admin Dashboard"].map((t, i) => (
-                        <div key={t} className="flex items-center gap-3 text-sm" style={{ color: theme === 'light' ? '#5B7AB5' : '#64748B' }}>
+                        <div key={t} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-tertiary)' }}>
                             <CheckCircle2 className="h-4 w-4 text-green-400" />
                             <span>{t}</span>
                         </div>
@@ -103,48 +103,48 @@ const Hero = ({ onLaunch, onSeeHow, theme }) => {
 const FloatingMockup = () => {
     return (
         <motion.section initial={{ y: 60, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5 }} className="relative z-20 -mt-12 px-6">
-            <div className="mx-auto max-w-5xl rounded-2xl overflow-hidden border border-[rgba(255,255,255,0.08)] bg-gradient-to-b from-[#0D1117] to-[#020817] shadow-[0_0_80px_rgba(59,130,246,0.15),0_40px_80px_rgba(0,0,0,0.5)]">
-                <div className="flex items-center justify-between border-b border-[rgba(255,255,255,0.06)] px-6 py-3 bg-[#0D1117]">
+            <div className="mx-auto max-w-5xl rounded-2xl overflow-hidden border-[var(--border-primary)] bg-gradient-to-b from-[var(--bg-card)] to-[var(--bg-primary)] shadow-[var(--card-shadow)]">
+                <div className="flex items-center justify-between border-b border-[var(--border-primary)] px-6 py-3 bg-[var(--bg-card)]">
                     <div className="flex items-center gap-2">
                         <span className="h-3 w-3 rounded-full bg-red-500" />
                         <span className="h-3 w-3 rounded-full bg-yellow-400" />
                         <span className="h-3 w-3 rounded-full bg-green-500" />
                     </div>
-                    <div className="text-xs text-slate-500">localhost:5173/admin</div>
-                    <div className="text-xs text-slate-400 flex items-center gap-2"><Lock className="h-4 w-4 text-slate-400" /> Secure</div>
+                    <div className="text-xs text-[var(--text-tertiary)]">localhost:5173/admin</div>
+                    <div className="text-xs text-[var(--text-secondary)] flex items-center gap-2"><Lock className="h-4 w-4 text-[var(--text-secondary)]" /> Secure</div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     <div className="p-6">
-                        <div className="text-lg font-semibold text-white">Admin Control Room</div>
+                        <div className="text-lg font-semibold text-[var(--text-primary)]">Admin Control Room</div>
                         <div className="mt-4 grid grid-cols-2 gap-3">
-                            <div className="rounded-lg bg-[#0F1720] p-3 text-xs">
+                            <div className="rounded-lg bg-[var(--bg-secondary)] p-3 text-xs">
                                 <div className="font-semibold">6 Sessions</div>
-                                <div className="text-slate-400">Active & upcoming</div>
+                                <div className="text-[var(--text-secondary)]">Active & upcoming</div>
                             </div>
-                            <div className="rounded-lg bg-[#0F1720] p-3 text-xs">
+                            <div className="rounded-lg bg-[var(--bg-secondary)] p-3 text-xs">
                                 <div className="font-semibold">24 Present</div>
-                                <div className="text-slate-400">Live now</div>
+                                <div className="text-[var(--text-secondary)]">Live now</div>
                             </div>
-                            <div className="rounded-lg bg-[#0F1720] p-3 text-xs">
+                            <div className="rounded-lg bg-[var(--bg-secondary)] p-3 text-xs">
                                 <div className="font-semibold">3 Absent</div>
-                                <div className="text-slate-400">Marked</div>
+                                <div className="text-[var(--text-secondary)]">Marked</div>
                             </div>
-                            <div className="rounded-lg bg-[#0F1720] p-3 text-xs">
+                            <div className="rounded-lg bg-[var(--bg-secondary)] p-3 text-xs">
                                 <div className="font-semibold">88% Rate</div>
-                                <div className="text-slate-400">Average</div>
+                                <div className="text-[var(--text-secondary)]">Average</div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-6 border-l border-[rgba(255,255,255,0.06)]">
+                    <div className="p-6 border-l border-[var(--border-primary)]">
                         <div className="text-sm font-semibold text-teal-300">Dynamic QR Gate</div>
                         <div className="mt-4 grid grid-cols-8 gap-1 w-max">
                             {Array.from({ length: 64 }).map((_, i) => (
-                                <div key={i} className={`h-3 w-3 ${i % 5 === 0 ? 'bg-neutral-900' : 'bg-white'}`}></div>
+                                <div key={i} className={`h-3 w-3 ${i % 5 === 0 ? 'bg-[var(--bg-tertiary)]' : 'bg-[var(--text-primary)]'}`}></div>
                             ))}
                         </div>
-                        <div className="mt-4 text-xs text-slate-400">Refreshes in 8:42</div>
+                        <div className="mt-4 text-xs text-[var(--text-secondary)]">Refreshes in 8:42</div>
                         <div className="mt-2 text-xs text-green-400">Active · Git and Github Session</div>
                     </div>
                 </div>
@@ -154,21 +154,21 @@ const FloatingMockup = () => {
 };
 
 const FeatureCard = ({ Icon, title, desc, color = 'bg-blue-500/10' }) => (
-    <motion.div whileInView={{ y: 0, opacity: 1 }} initial={{ y: 16, opacity: 0 }} viewport={{ once: true }} className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#0D1117] p-6 hover:shadow-[0_0_20px_rgba(59,130,246,0.06)] transition">
+    <motion.div whileInView={{ y: 0, opacity: 1 }} initial={{ y: 16, opacity: 0 }} viewport={{ once: true }} className="rounded-2xl border-[var(--border-primary)] bg-[var(--bg-card)] p-6 hover:shadow-[var(--card-shadow)] transition">
         <div className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${color}`}>
             <Icon className="h-5 w-5 text-white/90" />
         </div>
-        <div className="mt-4 text-white font-semibold">{title}</div>
-        <div className="mt-2 text-sm text-slate-400">{desc}</div>
+        <div className="mt-4 text-[var(--text-primary)] font-semibold">{title}</div>
+        <div className="mt-2 text-sm text-[var(--text-secondary)]">{desc}</div>
     </motion.div>
 );
 
 const Features = () => (
-    <section id="features" className="py-24 bg-[#020817]">
+    <section id="features" className="py-24 bg-[var(--bg-primary)]">
         <div className="mx-auto max-w-6xl px-6 text-center">
             <div className="text-xs tracking-widest text-blue-400 uppercase">FEATURES</div>
-            <h2 className="mt-4 text-4xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Everything your club needs</h2>
-            <p className="mt-2 text-slate-400 max-w-2xl mx-auto">A complete attendance tool built for college clubs and campus organizations — secure, reliable, and realtime.</p>
+            <h2 className="mt-4 text-4xl font-bold text-[var(--text-primary)]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Everything your club needs</h2>
+            <p className="mt-2 text-[var(--text-secondary)] max-w-2xl mx-auto">A complete attendance tool built for college clubs and campus organizations — secure, reliable, and realtime.</p>
 
             <div className="mt-12 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 <FeatureCard Icon={QrCode} title="Instant QR Generation" desc="Create a session, activate it, QR appears immediately." color="bg-blue-500/10" />
@@ -190,22 +190,22 @@ const HowItWorks = () => {
     ];
 
     return (
-        <section id="how-it-works" className="py-24 bg-[#020817]">
+        <section id="how-it-works" className="py-24 bg-[var(--bg-primary)]">
             <div className="mx-auto max-w-6xl px-6">
                 <div className="text-center">
                     <div className="text-xs tracking-widest text-blue-400 uppercase">How it Works</div>
-                    <h3 className="mt-4 text-3xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Up and running in minutes</h3>
+                    <h3 className="mt-4 text-3xl font-bold text-[var(--text-primary)]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Up and running in minutes</h3>
                 </div>
 
                 <div className="mt-12 space-y-10">
                     {steps.map((s, i) => (
                         <motion.div key={s.num} initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="flex flex-col md:flex-row md:items-center md:gap-8">
                             <div className="md:w-36 flex items-center md:justify-center">
-                                <div className="text-7xl font-bold text-[rgba(59,130,246,0.12)]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{s.num}</div>
+                                <div className="text-7xl font-bold text-[var(--accent-primary-faded)]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{s.num}</div>
                             </div>
                             <div className="md:flex-1">
-                                <div className="text-2xl font-semibold text-white">{s.title}</div>
-                                <div className="mt-2 text-slate-400">{s.desc}</div>
+                                <div className="text-2xl font-semibold text-[var(--text-primary)]">{s.title}</div>
+                                <div className="mt-2 text-[var(--text-secondary)]">{s.desc}</div>
                             </div>
                         </motion.div>
                     ))}
@@ -217,49 +217,49 @@ const HowItWorks = () => {
 
 const CTA = ({ onRegister, onLogin }) => (
     <section className="py-24">
-        <motion.div whileInView={{ scale: 1, opacity: 1 }} initial={{ scale: 0.95, opacity: 0 }} viewport={{ once: true }} className="mx-auto max-w-3xl rounded-3xl p-12 text-center" style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.12))', border: '1px solid rgba(59,130,246,0.3)', boxShadow: '0 0 60px rgba(59,130,246,0.1)' }}>
-            <h3 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Ready to go paperless?</h3>
-            <p className="text-slate-400 mb-8">Set up your first session in under 2 minutes.</p>
+        <motion.div whileInView={{ scale: 1, opacity: 1 }} initial={{ scale: 0.95, opacity: 0 }} viewport={{ once: true }} className="mx-auto max-w-3xl rounded-3xl p-12 text-center" style={{ background: 'var(--bg-gradient-cta)', border: '1px solid var(--border-accent)', boxShadow: 'var(--shadow-cta)' }}>
+            <h3 className="text-4xl font-bold text-[var(--text-primary)] mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Ready to go paperless?</h3>
+            <p className="text-[var(--text-secondary)] mb-8">Set up your first session in under 2 minutes.</p>
             <div className="flex justify-center gap-4">
-                <button onClick={onRegister} className="rounded-full bg-[#3B82F6] px-8 py-4 font-semibold text-white hover:brightness-105">Get Started Free →</button>
-                <button onClick={onLogin} className="rounded-full border border-white/20 px-8 py-4 text-white">Sign In</button>
+                <button onClick={onRegister} className="rounded-full bg-accent-primary px-8 py-4 font-semibold text-white hover:brightness-105">Get Started Free →</button>
+                <button onClick={onLogin} className="rounded-full border border-[var(--border-primary)] px-8 py-4 text-[var(--text-primary)]">Sign In</button>
             </div>
         </motion.div>
     </section>
 );
 
 const Footer = ({ onLogin, onRegister }) => (
-    <footer className="border-t border-[rgba(255,255,255,0.05)] py-12">
+    <footer className="border-t border-[var(--border-primary)] py-12">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
                 <div className="flex items-center gap-3 mb-3">
-                    <div className="h-8 w-8 flex items-center justify-center rounded bg-[#071029] text-[#60A5FA]"><LayoutGrid /></div>
+                    <div className="h-8 w-8 flex items-center justify-center rounded bg-[var(--bg-secondary)] text-accent-primary"><LayoutGrid /></div>
                     <div>
                         <div className="font-semibold">SmartAttend</div>
-                        <div className="text-sm text-slate-500">Smart Attendance System for Developer's Club</div>
+                        <div className="text-sm text-[var(--text-tertiary)]">Smart Attendance System for Developer's Club</div>
                     </div>
                 </div>
-                <div className="text-sm text-slate-500">Built at BEC · 2026</div>
+                <div className="text-sm text-[var(--text-tertiary)]">Built at BEC · 2026</div>
             </div>
 
             <div>
-                <div className="text-xs text-slate-400 uppercase mb-3">Navigation</div>
+                <div className="text-xs text-[var(--text-secondary)] uppercase mb-3">Navigation</div>
                 <div className="flex flex-col gap-2">
-                    <a href="#" className="text-sm text-slate-500 hover:text-white">Home</a>
-                    <a href="#features" className="text-sm text-slate-500 hover:text-white">Features</a>
-                    <a href="#how-it-works" className="text-sm text-slate-500 hover:text-white">How it Works</a>
+                    <a href="#" className="text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Home</a>
+                    <a href="#features" className="text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Features</a>
+                    <a href="#how-it-works" className="text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">How it Works</a>
                 </div>
             </div>
 
             <div>
-                <div className="text-xs text-slate-400 uppercase mb-3">Account</div>
+                <div className="text-xs text-[var(--text-secondary)] uppercase mb-3">Account</div>
                 <div className="flex flex-col gap-2">
-                    <a onClick={onLogin} className="text-sm text-slate-500 hover:text-white cursor-pointer">Sign In</a>
-                    <a onClick={onRegister} className="text-sm text-slate-500 hover:text-white cursor-pointer">Register</a>
+                    <a onClick={onLogin} className="text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] cursor-pointer">Sign In</a>
+                    <a onClick={onRegister} className="text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] cursor-pointer">Register</a>
                 </div>
             </div>
         </div>
-        <div className="mt-8 border-t border-[rgba(255,255,255,0.04)] pt-8 text-center text-slate-600 text-xs">© 2026 SmartAttend · BEC Developer&apos;s Club</div>
+        <div className="mt-8 border-t border-[var(--border-secondary)] pt-8 text-center text-[var(--text-tertiary)] text-xs">© 2026 SmartAttend · BEC Developer&apos;s Club</div>
     </footer>
 );
 

@@ -32,6 +32,7 @@ const MemberDashboardPage = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const { theme } = useTheme();
+    const [activeSection, setActiveSection] = useState('sessions');
 
     const [activeSession, setActiveSession] = useState(null);
     const [qrCode, setQrCode] = useState(null);
@@ -59,8 +60,7 @@ const MemberDashboardPage = () => {
                 const active = activeRes.data?.session;
                 setActiveSession(active);
                 setStats(statsRes.data || { attended: 0, totalSessions: 0, percentage: 0, streak: 0, sessionsAttended: [] });
-                setAttendanceRows(attendanceRes.data.attendance || []);
-                setAssignments(assignmentsRes.data.assignments || []);
+                { theme === 'dark' ? <Sun className="inline-block h-4 w-4" /> : <Moon className="inline-block h-4 w-4" /> }
 
                 if (active) {
                     try {
@@ -173,17 +173,34 @@ const MemberDashboardPage = () => {
                     <div className="mx-6 border-t" style={{ borderColor: theme === 'light' ? 'rgba(255,255,255,0.1)' : 'var(--border-color)' }} />
 
                     <nav className="mt-6 flex-1 space-y-1 px-3 text-sm">
-                        <button
-                            style={{
-                                borderLeftColor: '#3B82F6',
-                                backgroundColor: '#3B82F6/10',
-                                color: theme === 'light' ? '#FFFFFF' : '#FFFFFF'
-                            }}
-                            className="flex w-full items-center gap-3 rounded-lg border-l-2 px-3 py-2 text-left transition"
-                        >
-                            <CheckSquare className="h-4 w-4 text-[#3B82F6]" />
-                            My Dashboard
-                        </button>
+                        {[
+                            { id: 'sessions', label: 'Sessions', icon: CalendarDays, sectionId: 'sessions-section' },
+                            { id: 'attendance', label: 'My Attendance', icon: CheckSquare, sectionId: 'attendance-section' },
+                            { id: 'assignments', label: 'My Assignments', icon: ClipboardList, sectionId: 'assignments-section' }
+                        ].map(item => {
+                            const isActive = activeSection === item.id;
+                            return (
+                                <button
+                                    key={item.id}
+                                    onClick={() => {
+                                        setActiveSection(item.id);
+                                        const section = document.getElementById(item.sectionId);
+                                        if (section) {
+                                            section.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    }}
+                                    style={{
+                                        color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.75)',
+                                        backgroundColor: isActive ? 'rgba(59,130,246,0.2)' : 'transparent',
+                                        borderLeft: isActive ? '3px solid #3B82F6' : '3px solid transparent'
+                                    }}
+                                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition hover:text-white"
+                                >
+                                    <item.icon className="h-4 w-4 text-[#3B82F6]" />
+                                    {item.label}
+                                </button>
+                            );
+                        })}
                     </nav>
 
                     <div
@@ -239,7 +256,7 @@ const MemberDashboardPage = () => {
 
                     {/* SECTION 1: Active Session Banner */}
                     {activeSession ? (
-                        <div style={{ borderColor: 'rgba(16, 185, 129, 0.3)', backgroundColor: 'rgba(16, 185, 129, 0.1)' }} className="mb-8 flex gap-6 rounded-2xl border-l-4 border-l-emerald-500 p-6">
+                        <div id="sessions-section" style={{ borderColor: 'rgba(16, 185, 129, 0.3)', backgroundColor: 'rgba(16, 185, 129, 0.1)' }} className="mb-8 flex gap-6 rounded-2xl border-l-4 border-l-emerald-500 p-6">
                             <div className="flex-1">
                                 <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-300 mb-3 border border-emerald-500/30">
                                     <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -309,7 +326,7 @@ const MemberDashboardPage = () => {
                     </div>
 
                     {/* SECTION 3: My Attendance History */}
-                    <div style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }} className="mb-10 overflow-hidden rounded-2xl border shadow-xl">
+                    <div id="attendance-section" style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }} className="mb-10 overflow-hidden rounded-2xl border shadow-xl">
                         <div style={{ borderBottomColor: 'var(--border-color)' }} className="border-b px-6 py-4">
                             <h2 style={{ color: 'var(--text-primary)' }} className="text-lg font-semibold">My Attendance History</h2>
                         </div>
@@ -357,7 +374,7 @@ const MemberDashboardPage = () => {
                     </div>
 
                     {/* SECTION 4: Assignments */}
-                    <div>
+                    <div id="assignments-section">
                         <div className="mb-6 flex items-center gap-2">
                             <ClipboardList size={20} style={{ color: 'var(--text-primary)' }} />
                             <h2 style={{ color: 'var(--text-primary)' }} className="text-lg font-semibold">My Assignments</h2>

@@ -97,6 +97,7 @@ router.patch('/:id/status', authMiddleware, requireRoles(['ADMIN', 'VOLUNTEER'])
 
 router.get('/:id/qr', authMiddleware, requireRoles(['ADMIN', 'VOLUNTEER']), async (req, res) => {
     try {
+        console.log('CLIENT_URL env:', process.env.CLIENT_URL);
         const session = await Session.findById(req.params.id);
         if (!session) {
             return res.status(404).json({ error: 'Session not found' });

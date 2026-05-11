@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
 const generateCode = require('../utils/generateCode');
 
+console.log('JWT_SECRET loaded:', !!process.env.JWT_SECRET);
+
 const router = express.Router();
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const allowedRoles = ['ADMIN', 'VOLUNTEER', 'MEMBER'];
@@ -82,9 +84,10 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid code or password' });
         }
 
+        const jwtSecret = process.env.JWT_SECRET || 'fallback_secret_key_123';
         const token = jwt.sign(
             { id: user._id, email: user.email, role: user.role },
-            process.env.JWT_SECRET,
+            jwtSecret,
             { expiresIn: '7d' }
         );
 

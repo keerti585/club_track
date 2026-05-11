@@ -58,9 +58,11 @@ const MemberDashboardPage = () => {
                 ]);
 
                 const active = activeRes.data?.session;
+                console.log('My stats:', statsRes.data);
+                console.log('My attendance:', attendanceRes.data);
                 setActiveSession(active);
                 setStats(statsRes.data || { attended: 0, totalSessions: 0, percentage: 0, streak: 0, sessionsAttended: [] });
-                { theme === 'dark' ? <Sun className="inline-block h-4 w-4" /> : <Moon className="inline-block h-4 w-4" /> }
+                setAttendanceRows(attendanceRes.data?.attendance || []);
 
                 if (active) {
                     try {

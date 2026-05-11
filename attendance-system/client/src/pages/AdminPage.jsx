@@ -123,6 +123,7 @@ const AdminPage = () => {
     const [qrModalSecondsLeft, setQrModalSecondsLeft] = useState(600);
     const [qrModalScanUrl, setQrModalScanUrl] = useState('');
     const [qrModalCopyLabel, setQrModalCopyLabel] = useState('Copy Link');
+    const [qrModalCopySuccess, setQrModalCopySuccess] = useState(false);
 
     const [detailSession, setDetailSession] = useState(null);
     const [detailAttendance, setDetailAttendance] = useState([]);
@@ -360,8 +361,9 @@ const AdminPage = () => {
         setQrModalError('');
         try {
             const response = await api.get(`/api/sessions/${sessionId}/qr`);
-            setQrModalCode(response.data.qrCode);
-            setQrModalScanUrl(response.data.scanUrl || '');
+            const data = response.data;
+            setQrModalCode(data.qrCode);
+            setQrModalScanUrl(data.scanUrl || '');
             setQrModalSecondsLeft(600);
         } catch (error) {
             const message = error.response?.data?.error || 'Failed to generate QR';
@@ -760,6 +762,7 @@ const AdminPage = () => {
         setQrModalSecondsLeft(600);
         setQrModalScanUrl('');
         setQrModalCopyLabel('Copy Link');
+        setQrModalCopySuccess(false);
     };
 
     const handleQuickAddMember = async (event) => {
@@ -2247,16 +2250,23 @@ const AdminPage = () => {
                                         if (!qrModalScanUrl) return;
                                         try {
                                             await navigator.clipboard.writeText(qrModalScanUrl);
-                                            setQrModalCopyLabel('Copied');
+                                            setQrModalCopySuccess(true);
                                             pushToast('success', 'QR link copied.');
-                                            setTimeout(() => setQrModalCopyLabel('Copy Link'), 2000);
+                                            setTimeout(() => setQrModalCopySuccess(false), 2000);
                                         } catch (copyError) {
-                                            setQrModalCopyLabel('Copy Link');
+                                            const textArea = document.createElement('textarea');
+                                            textArea.value = qrModalScanUrl;
+                                            document.body.appendChild(textArea);
+                                            textArea.select();
+                                            document.execCommand('copy');
+                                            document.body.removeChild(textArea);
+                                            setQrModalCopySuccess(true);
+                                            setTimeout(() => setQrModalCopySuccess(false), 2000);
                                         }
                                     }}
                                     className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
                                 >
-                                    {qrModalCopyLabel}
+                                    {qrModalCopySuccess ? '✅ Copied!' : 'Copy Link'}
                                 </button>
                             </div>
                         </motion.div>

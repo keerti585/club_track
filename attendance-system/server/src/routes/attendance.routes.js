@@ -23,10 +23,6 @@ router.post('/scan', async (req, res) => {
             return res.status(400).json({ error: 'All fields are required' });
         }
 
-        if (!process.env.JWT_SECRET) {
-            return res.status(500).json({ error: 'JWT secret not configured' });
-        }
-
         let decoded;
         try {
             decoded = jwt.verify(token, process.env.JWT_SECRET);

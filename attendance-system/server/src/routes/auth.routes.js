@@ -82,10 +82,6 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid code or password' });
         }
 
-        if (!process.env.JWT_SECRET) {
-            return res.status(500).json({ error: 'JWT secret not configured' });
-        }
-
         const token = jwt.sign(
             { id: user._id, email: user.email, role: user.role },
             process.env.JWT_SECRET,

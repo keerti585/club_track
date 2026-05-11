@@ -107,14 +107,15 @@ router.get('/:id/qr', authMiddleware, requireRoles(['ADMIN', 'VOLUNTEER']), asyn
         }
 
         const secret = process.env.JWT_SECRET || 'fallback_secret_key_123';
-        const token = jwt.sign(
+        const signedToken = jwt.sign(
             { sessionId: session._id.toString(), type: 'attendance' },
             secret,
             { expiresIn: '10m' }
         );
 
-        const qrUrl = `http://localhost:5173/scan?sessionId=${session._id}&token=${token}`;
-        const qrCode = await QRCode.toDataURL(qrUrl);
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        const scanUrl = `${clientUrl}/scan?sessionId=${session._id}&token=${signedToken}`;
+        const qrCode = await QRCode.toDataURL(scanUrl);
         const expiresAt = Date.now() + 10 * 60 * 1000;
 
         return res.json({ qrCode, expiresAt });

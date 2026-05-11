@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Html5Qrcode } from 'html5-qrcode';
 import { CheckCircle2, LogOut, QrCode } from 'lucide-react';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 import api from '../utils/axios';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -32,8 +33,10 @@ const ScanPage = () => {
     const [error, setError] = useState('');
     const [isScanning, setIsScanning] = useState(false);
     const [scanError, setScanError] = useState('');
+    const [autoSubmitAttempt, setAutoSubmitAttempt] = useState(0);
 
     const scannerRef = useRef(null);
+    const autoSubmitRef = useRef(false);
     const scannerId = 'qr-reader';
 
     useEffect(() => {
@@ -46,6 +49,44 @@ const ScanPage = () => {
             setToken(urlToken);
         }
     }, [location.search]);
+
+    useEffect(() => {
+        const hasAuthToken = Boolean(localStorage.getItem('token'));
+        if (!sessionId || !token || !hasAuthToken || autoSubmitRef.current) {
+            return;
+        }
+
+        if (!storedUser?.name || !storedUser?.email) {
+            setError('Login details missing. Please enter your name and email.');
+            return;
+        }
+
+        autoSubmitRef.current = true;
+        setLoading(true);
+        setMessage('');
+        setError('');
+
+        api.post('/api/attendance/scan', {
+            sessionId,
+            token,
+            name: storedUser.name,
+            email: storedUser.email
+        })
+            .then(response => {
+                const displayName = response.data.name || storedUser.name;
+                setMessage(`Attendance Marked! Welcome, ${displayName}.`);
+                localStorage.setItem('attendanceName', storedUser.name);
+                localStorage.setItem('attendanceEmail', storedUser.email);
+            })
+            .catch(submitError => {
+                autoSubmitRef.current = false;
+                const messageText = submitError.response?.data?.error || 'Failed to mark attendance';
+                setError(messageText);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, [sessionId, token, storedUser, autoSubmitAttempt]);
 
     useEffect(() => {
         return () => {
@@ -146,7 +187,15 @@ const ScanPage = () => {
         }
     };
 
+    const handleRetryAuto = () => {
+        autoSubmitRef.current = false;
+        setError('');
+        setMessage('');
+        setAutoSubmitAttempt(prev => prev + 1);
+    };
+
     const hasDirectParams = Boolean(sessionId && token);
+    const isLoggedIn = Boolean(localStorage.getItem('token'));
 
     return (
         <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="min-h-screen [font-family:'DM Sans',sans-serif]">
@@ -193,6 +242,30 @@ const ScanPage = () => {
                         <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-4 text-center text-sm text-emerald-200">
                             <p className="text-lg font-semibold">✅ Attendance Marked!</p>
                             <p className="mt-2 text-sm">{message}</p>
+                        </div>
+                    ) : hasDirectParams && isLoggedIn ? (
+                        <div className="mt-6 flex flex-col items-center gap-3 text-center text-sm text-[#9CA3AF]">
+                            {error && (
+                                <div className="w-full rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                                    {error}
+                                </div>
+                            )}
+                            {loading ? (
+                                <LoadingSpinner />
+                            ) : error ? (
+                                <>
+                                    <p className="text-sm text-[#9CA3AF]">Unable to mark attendance.</p>
+                                    <button
+                                        type="button"
+                                        onClick={handleRetryAuto}
+                                        className="w-full rounded-lg border border-[#2A2A2A] bg-[#111111] px-4 py-2 text-sm font-semibold text-[#F9FAFB] transition hover:bg-[#1F1F1F]"
+                                    >
+                                        Retry
+                                    </button>
+                                </>
+                            ) : (
+                                <p className="text-sm text-[#9CA3AF]">Marking attendance...</p>
+                            )}
                         </div>
                     ) : hasDirectParams ? (
                         <form onSubmit={handleSubmit} className="mt-6 space-y-4">

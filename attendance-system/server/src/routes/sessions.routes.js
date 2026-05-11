@@ -116,9 +116,12 @@ router.get('/:id/qr', authMiddleware, requireRoles(['ADMIN', 'VOLUNTEER']), asyn
         const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
         const scanUrl = `${clientUrl}/scan?sessionId=${session._id}&token=${signedToken}`;
         const qrCode = await QRCode.toDataURL(scanUrl);
-        const expiresAt = Date.now() + 10 * 60 * 1000;
 
-        return res.json({ qrCode, expiresAt });
+        return res.json({
+            qrCode,
+            scanUrl,
+            expiresAt: Date.now() + 10 * 60 * 1000
+        });
     } catch (error) {
         console.error('Generate QR error:', error);
         return res.status(500).json({ error: 'Server error' });

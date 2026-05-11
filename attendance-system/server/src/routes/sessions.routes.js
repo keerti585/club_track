@@ -106,9 +106,10 @@ router.get('/:id/qr', authMiddleware, requireRoles(['ADMIN', 'VOLUNTEER']), asyn
             return res.status(400).json({ error: 'Session must be ACTIVE to generate QR' });
         }
 
+        const secret = process.env.JWT_SECRET || 'fallback_secret_key_123';
         const token = jwt.sign(
             { sessionId: session._id.toString(), type: 'attendance' },
-            process.env.JWT_SECRET,
+            secret,
             { expiresIn: '10m' }
         );
 
